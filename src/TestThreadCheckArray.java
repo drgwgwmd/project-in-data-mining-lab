@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.Duration;
+import java.time.Instant;
 
 public class TestThreadCheckArray {
 	public static void main(String[] args) {
@@ -20,13 +22,17 @@ public class TestThreadCheckArray {
 			
 			thread1 = new Thread(new ThreadCheckArray(sd), "thread1");
 			thread2 = new Thread(new ThreadCheckArray(sd), "thread2");
+			Instant start = Instant.now();
 			thread1.start();
 			thread2.start();
 			try 
 			{
 				thread1.join();
 				thread2.join();
-			} 
+				Instant end = Instant.now();
+				Duration timeElapsed = Duration.between(start, end);
+				System.out.println("Time taken: "+ timeElapsed.toMillis() +" milliseconds");
+			}
 			catch (InterruptedException e)
 			{
 				e.printStackTrace();
@@ -68,5 +74,4 @@ public class TestThreadCheckArray {
 			}
 		}
 	}
-
 }
